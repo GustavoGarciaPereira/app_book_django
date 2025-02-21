@@ -1,0 +1,30 @@
+<!-- templates/books/list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Meus Livros</h2>
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Buscar por título/autor">
+    <select name="status">
+        <option value="">Todos</option>
+        <option value="Lido">Lidos</option>
+        <option value="Desejado">Desejados</option>
+    </select>
+    <button type="submit">Filtrar</button>
+</form>
+
+<table class="table">
+    <th>Título</th>
+    <th>Autor</th>
+    <th>Status</th>
+    <th>Ações</th>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.status }}</td>
+        <td><a href="{% url 'book_edit' book.pk %}">✏️</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -19,18 +19,17 @@ class BookListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
         search_query = self.request.GET.get('q')
         status_filter = self.request.GET.get('status')
-        
         if search_query:
             queryset = queryset.filter(
                 Q(title__icontains=search_query) | 
-                Q(author__icontains=search_query) |
-                Q(user=self.request.user)
+                Q(author__icontains=search_query)
             )
         if status_filter:
-            queryset = queryset.filter(status=status_filter, user=self.request.user)
-        queryset = queryset.filter(user=self.request.user)
+            queryset = queryset.filter(status=status_filter)
+        
         return queryset
 
 # views.py

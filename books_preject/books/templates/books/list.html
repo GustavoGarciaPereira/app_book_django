@@ -3,7 +3,7 @@
 
 {% block content %}
 <h2>Meus Livros</h2>
-<form method="get" action="">
+<form method="get" action="{% url 'book_list' %}">
     <input type="text" name="q" placeholder="Buscar por título/autor">
     <select name="status">
         <option value="">Todos</option>

@@ -37,7 +37,7 @@ Sistema minimalista para gestão de livros lidos e desejados, desenvolvido em Dj
 **Passos:**
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/booktrack.git
+git clone https://github.com/GustavoGarciaPereira/app_book_django.git
 cd booktrack
 
 # Configure ambiente virtual (Pipenv)

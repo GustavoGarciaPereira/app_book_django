@@ -51,7 +51,7 @@ class BookCreateView(LoginRequiredMixin, CreateView):
 # views.py (modificação do BookListView)
 # views.py
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, TemplateView
 from .models import Book
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
@@ -105,3 +105,22 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+# views.py
+from django.http import JsonResponse
+from django.db.models import Count
+
+def reading_stats(request):
+    data = {
+        'labels': ['Lidos', 'Desejados'],
+        'data': [
+            Book.objects.filter(user=request.user, status='Lido').count(),
+            Book.objects.filter(user=request.user, status='Desejado').count(),
+        ]
+    }
+    return JsonResponse(data)
+
+
+class GraficoTemplateView(TemplateView):
+    template_name = 'books/grafico.html'

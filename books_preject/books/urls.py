@@ -8,7 +8,8 @@ from .views import (
     BookDetailView,
     BookDeleteView,
     GraficoTemplateView,
-    reading_stats
+    reading_stats,
+    export_books
 )
 
 from .views import reading_stats
@@ -20,4 +21,5 @@ urlpatterns = [
     path('book_delete/<int:pk>/', BookDeleteView.as_view(), name='book_delete'),
     path('stats/', reading_stats, name='reading_stats'),
     path('graficos/', GraficoTemplateView.as_view(), name='book_grafico'),
+    path('export/', export_books, name='export_books'),
 ]

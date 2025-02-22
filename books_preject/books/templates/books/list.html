@@ -42,5 +42,8 @@
     </tr>
     {% endfor %}
 </table>
-
+<!-- templates/books/list.html -->
+<a href="{% url 'export_books' %}" class="btn btn-success mb-3">
+    Exportar para CSV
+</a>
 {% endblock %}

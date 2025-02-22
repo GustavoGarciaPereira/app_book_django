@@ -124,3 +124,21 @@ def reading_stats(request):
 
 class GraficoTemplateView(TemplateView):
     template_name = 'books/grafico.html'
+    
+    
+# views.py
+import csv
+from django.http import HttpResponse
+
+def export_books(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="meus_livros.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Título', 'Autor', 'Status', 'Avaliação'])
+
+    books = Book.objects.filter(user=request.user)
+    for book in books:
+        writer.writerow([book.title, book.author, book.status, book.rating or 'N/A'])
+
+    return response

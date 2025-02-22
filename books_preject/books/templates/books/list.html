@@ -3,34 +3,42 @@
 
 {% block content %}
 <h2>Meus Livros</h2>
-<form method="get" action="{% url 'book_list' %}">
+<form method="get" action="{% url 'book_list' %}" style="padding: 10px">
     <input type="text" name="q" placeholder="Buscar por título/autor">
     <select name="status">
         <option value="">Todos</option>
         <option value="Lido">Lidos</option>
         <option value="Desejado">Desejados</option>
     </select>
-    <button type="submit">Filtrar</button>
+    <button type="submit" class="btn btn-primary" style="padding: 10px">Filtrar</button>
 </form>
 
-<table class="table">
+<table class="table" style="padding: 20px">
     <th>Título</th>
     <th>Autor</th>
     <th>Status</th>
     <th>Ações</th>
+    <th>Avaliação</th>
     {% for book in books %}
     <tr>
         <td>{{ book.title }}</td>
         <td>{{ book.author }}</td>
         <td>{{ book.status }}</td>
         <td>
-            <a href="{% url 'book_edit' book.pk %}">✏️</a>
-            -
-            <a href="{% url 'book_delete' book.pk %}">🗑️</a>
-            -
-            <a href="{% url 'book_detail' book.pk %}">🔎</a>
+            <a style="text-decoration: none;" href="{% url 'book_edit' book.pk %}">✏️</a>
+            <a style="text-decoration: none;" href="{% url 'book_delete' book.pk %}">🗑️</a>
+            <a style="text-decoration: none;" href="{% url 'book_detail' book.pk %}">🔎</a>
         </td>
-        
+            <!-- templates/books/list.html -->
+        <td>
+            {% if book.rating %}
+                {% for _ in "12345" %}
+                    <span class="star {% if forloop.counter <= book.rating %}text-warning{% else %}text-secondary{% endif %}">★</span>
+                {% endfor %}
+            {% else %}
+                Sem avaliação
+            {% endif %}
+        </td>
     </tr>
     {% endfor %}
 </table>

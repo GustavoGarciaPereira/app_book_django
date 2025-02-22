@@ -35,7 +35,7 @@ class BookListView(LoginRequiredMixin, ListView):
 # views.py
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
-    fields = ['title', 'author', 'status']
+    fields = ['title', 'author', 'status', 'rating']
     template_name = 'books/form.html'
 
     def form_valid(self, form):
@@ -56,7 +56,7 @@ from .models import Book
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
-    fields = ['title', 'author', 'status']
+    fields = ['title', 'author', 'status', 'rating']
     template_name = 'books/form.html'
     
     def form_valid(self, form):
@@ -68,7 +68,7 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
 
 class BookDetailView(LoginRequiredMixin, UpdateView):
     model = Book
-    fields = ['title', 'author', 'status']
+    fields = ['title', 'author', 'status', 'rating']
     template_name = 'books/form.html'
     
     def form_valid(self, form):
@@ -80,7 +80,7 @@ class BookDetailView(LoginRequiredMixin, UpdateView):
     
 class BookDeleteView(LoginRequiredMixin, UpdateView):
     model = Book
-    fields = ['title', 'author', 'status']
+    fields = ['title', 'author', 'status', 'rating']
     template_name = 'books/form.html'
     
     def form_valid(self, form):

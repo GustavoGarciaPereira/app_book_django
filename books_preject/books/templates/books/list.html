@@ -23,7 +23,14 @@
         <td>{{ book.title }}</td>
         <td>{{ book.author }}</td>
         <td>{{ book.status }}</td>
-        <td><a href="{% url 'book_edit' book.pk %}">✏️</a></td>
+        <td>
+            <a href="{% url 'book_edit' book.pk %}">✏️</a>
+            -
+            <a href="{% url 'book_delete' book.pk %}">🗑️</a>
+            -
+            <a href="{% url 'book_detail' book.pk %}">🔎</a>
+        </td>
+        
     </tr>
     {% endfor %}
 </table>

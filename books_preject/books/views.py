@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import redirect, render
 
 # Create your views here.
@@ -65,9 +65,32 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('book_list')  # Redirect to the book list view after updating
+
+class BookDetailView(LoginRequiredMixin, UpdateView):
+    model = Book
+    fields = ['title', 'author', 'status']
+    template_name = 'books/form.html'
     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('book_list')  # Redirect to the book list view after updating
     
+class BookDeleteView(LoginRequiredMixin, UpdateView):
+    model = Book
+    fields = ['title', 'author', 'status']
+    template_name = 'books/form.html'
     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('book_list')  # Redirect to the book list view after updating
+
+
 # Em notes/views.py
 from .forms import SignUpForm
 
@@ -77,7 +100,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            #messages.success(request, f'Conta criada para {username}!')
+            messages.success(request, f'Conta criada para {username}!')
             return redirect('login')
     else:
         form = SignUpForm()

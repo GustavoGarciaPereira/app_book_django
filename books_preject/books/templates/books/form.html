@@ -1,11 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
     <h2 class="my-4">{% if form.instance.pk %}Editar Nota{% else %}Nova Nota{% endif %}</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Título:</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="error">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ form.author.id_for_label }}">Autor:</label>
+                {{ form.author }}
+                {% if form.author.errors %}
+                    <div class="error">{{ form.author.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ form.status.id_for_label }}">Status:</label>
+                {{ form.status }}
+                {% if form.status.errors %}
+                    <div class="error">{{ form.status.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Avaliação (1-5 estrelas):</label>
+            <select name="rating" id="rating" class="form-select">
+                <option value="">Selecione...</option>
+                {% for i in "12345" %}
+                    <option value="{{ i }}" {% if form.rating.value|default_if_none:"" == i|add:0 %}selected{% endif %}>{{ i }} estrela(s)</option>
+                {% endfor %}
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="{% url 'book_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
+
+
 {% endblock %}
+
+
+

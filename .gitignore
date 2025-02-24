@@ -1,1 +1,6 @@
 /venv
+books_preject/*/__pycache__/*.cpython-38.pyc
+books_preject/*/migrations/__pycache__/0001_initial.cpython-38.pyc
+books_preject/*/migrations/__pycache__/0002_alter_book_unique_together_book_user_and_more.cpython-38.pyc
+books_preject/*/migrations/__pycache__/*.cpython-38.pyc
+.vscode/settings.json

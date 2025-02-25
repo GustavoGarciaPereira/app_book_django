@@ -11,7 +11,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
-    rating = models.IntegerField(blank=True, null=True)  # Opcional para fase 2
+    rating = models.IntegerField(blank=True, null=True, choices=[(i, i) for i in range(1, 6)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
@@ -19,3 +19,6 @@ class Book(models.Model):
 
     class Meta:
         unique_together = ['user', 'title', 'author']  # Evita duplicatas
+        
+        
+        

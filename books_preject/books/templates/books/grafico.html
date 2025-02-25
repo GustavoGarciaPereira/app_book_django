@@ -1,0 +1,28 @@
+<!-- templates/books/list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Gráficos</h2>
+
+
+
+<canvas id="readingChart" width="400" height="200"></canvas>
+<script>
+    fetch('/stats/')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('readingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Livros',
+                        data: data.data,
+                        backgroundColor: ['#36a2eb', '#ff6384']
+                    }]
+                }
+            });
+        });
+</script>
+{% endblock %}
